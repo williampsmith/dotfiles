@@ -1,0 +1,17 @@
+[pull]
+	rebase = true
+[rerere]
+	enabled = true
+[merge]
+	conflictStyle = diff3
+[alias]
+	st = status
+	ll = log --oneline
+	last = log -1 HEAD --stat
+	cm = commit -m
+	dv = difftool -t vimdiff -y
+	conf = config --global -l
+	co = checkout
+[user]
+	name = William Smith
+	email = williamprincesmith@gmail.com
