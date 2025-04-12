@@ -1,0 +1,26 @@
+{
+    "workbench.colorTheme": "Snazzy",
+    "security.workspace.trust.untrustedFiles": "open",
+    "editor.minimap.enabled": false,
+    "editor.inlayHints.enabled": "offUnlessPressed",
+    "editor.formatOnSave": true,
+    "rust-analyzer.checkOnSave.command": "clippy",
+    "editor.inlineSuggest.enabled": true,
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    "github.copilot.enable": {
+        "*": true,
+        "yaml": false,
+        "plaintext": true,
+        "markdown": false
+    },
+    "cursor.cpp.disabledLanguages": [
+        "yaml",
+        "markdown"
+    ],
+    "security.promptForLocalFileProtocolHandling": false,
+    "cursor.cpp.enablePartialAccepts": true,
+    "cursor.composer.collapsePaneInputBoxPills": true,
+    "cursor.terminal.usePreviewBox": true
+}
