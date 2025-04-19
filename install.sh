@@ -16,7 +16,7 @@ fi
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # install .gitconfig
-cp "$SCRIPT_DIR/.gitconfig" "$HOME/.gitconfig"
+cp $SCRIPT_DIR/.gitconfig $HOME/
 
 # install oh-my-zsh and plugins
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -24,19 +24,19 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 # install .zshrc
-cp "$SCRIPT_DIR/.zshrc" "$HOME/.zshrc"
+cp $SCRIPT_DIR/.zshrc $HOME/
 
 # install .zshenv
-cp "$SCRIPT_DIR/.zshenv" "$HOME/.zshenv"
+cp $SCRIPT_DIR/.zshenv $HOME/
 
 # install VSCode keybindings and settings
-cp "$SCRIPT_DIR/vscode/keybindings.json" "$HOME/Library/Application\ Support/Code/User/keybindings.json"
-cp "$SCRIPT_DIR/vscode/settings.json" "$HOME/Library/Application\ Support/Code/User/settings.json"
+cp $SCRIPT_DIR/vscode/keybindings.json $HOME/Library/Application\ Support/Code/User/
+cp $SCRIPT_DIR/vscode/settings.json $HOME/Library/Application\ Support/Code/User/
 
 # install cursor keybindings and settings if -A flag is provided
 if [[ "$1" == "-A" ]]; then
-    cp "$SCRIPT_DIR/cursor/keybindings.json" "$HOME/Library/Application\ Support/Cursor/User/keybindings.json"
-    cp "$SCRIPT_DIR/cursor/settings.json" "$HOME/Library/Application\ Support/Cursor/User/settings.json"
+    cp $SCRIPT_DIR/cursor/keybindings.json $HOME/Library/Application\ Support/Cursor/User/
+    cp $SCRIPT_DIR/cursor/settings.json $HOME/Library/Application\ Support/Cursor/User/
 fi
 
 echo "Installation complete!"
