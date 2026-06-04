@@ -76,6 +76,19 @@ alias python="python3"
 alias pip="pip3"
 alias rlint="cargo fmt && cargo xclippy"
 alias rtest="cargo nextest run"
+
+# Launch Claude Code against a separate personal profile (~/.claude-personal),
+# stripping any work API/Bedrock/Vertex env so it can't leak into the account.
+claude-personal() {
+  env \
+    -u ANTHROPIC_API_KEY -u ANTHROPIC_AUTH_TOKEN -u ANTHROPIC_BASE_URL \
+    -u ANTHROPIC_MODEL -u ANTHROPIC_DEFAULT_SONNET_MODEL \
+    -u ANTHROPIC_DEFAULT_OPUS_MODEL -u ANTHROPIC_DEFAULT_HAIKU_MODEL \
+    -u CLAUDE_CODE_OAUTH_TOKEN -u CLAUDE_CODE_USE_BEDROCK \
+    -u CLAUDE_CODE_USE_VERTEX -u CLAUDE_CODE_USE_FOUNDRY \
+    CLAUDE_CONFIG_DIR="$HOME/.claude-personal" \
+    claude "$@"
+}
 alias pcld='claude-personal'
 
 # ---------------------------------------------------------------------------

@@ -5,6 +5,8 @@
 # to ~/.dotfiles-backup/<timestamp>/ first.
 #
 # Usage: ./install.sh [options]
+#   --dotfiles-only  Only copy shell/git dotfiles; skip brew, oh-my-zsh,
+#                    editors, Warp, Claude, and the backup agent
 #   --no-brew     Skip Homebrew install + `brew bundle`
 #   --no-claude   Skip Claude Code config, skills, and plugins
 #   --no-warp     Skip Warp terminal settings
@@ -15,9 +17,10 @@
 
 set -euo pipefail
 
-DO_BREW=1 DO_CLAUDE=1 DO_WARP=1 DO_EDITORS=1 AGENT=ask
+DO_BREW=1 DO_CLAUDE=1 DO_WARP=1 DO_EDITORS=1 DO_OMZ=1 DOTFILES_ONLY=0 AGENT=ask
 for arg in "$@"; do
   case "$arg" in
+    --dotfiles-only) DOTFILES_ONLY=1 ;;
     --no-brew)    DO_BREW=0 ;;
     --no-claude)  DO_CLAUDE=0 ;;
     --no-warp)    DO_WARP=0 ;;
@@ -25,11 +28,16 @@ for arg in "$@"; do
     --with-agent) AGENT=yes ;;
     --no-agent)   AGENT=no ;;
     -h|--help)
-      sed -n '3,14p' "$0" | sed 's/^# \{0,1\}//'
+      sed -n '3,16p' "$0" | sed 's/^# \{0,1\}//'
       exit 0 ;;
     *) echo "Unknown option: $arg (see --help)"; exit 1 ;;
   esac
 done
+
+# --dotfiles-only: copy shell/git files and nothing else.
+if [ "$DOTFILES_ONLY" -eq 1 ]; then
+  DO_BREW=0 DO_CLAUDE=0 DO_WARP=0 DO_EDITORS=0 DO_OMZ=0 AGENT=no
+fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 BACKUP_DIR="$HOME/.dotfiles-backup/$(date +%Y%m%d-%H%M%S)"
@@ -65,21 +73,23 @@ fi
 # ---------------------------------------------------------------------------
 # 2. oh-my-zsh + custom plugins
 # ---------------------------------------------------------------------------
-ZSH_DIR="$HOME/.oh-my-zsh"
-ZSH_CUSTOM="${ZSH_CUSTOM:-$ZSH_DIR/custom}"
-if [ ! -d "$ZSH_DIR" ]; then
-  log "Installing oh-my-zsh"
-  RUNZSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-fi
-clone_plugin() {
-  local repo="$1" name="$2" dir="$ZSH_CUSTOM/plugins/$2"
-  if [ ! -d "$dir" ]; then
-    log "Cloning zsh plugin: $name"
-    git clone --depth=1 "$repo" "$dir"
+if [ "$DO_OMZ" -eq 1 ]; then
+  ZSH_DIR="$HOME/.oh-my-zsh"
+  ZSH_CUSTOM="${ZSH_CUSTOM:-$ZSH_DIR/custom}"
+  if [ ! -d "$ZSH_DIR" ]; then
+    log "Installing oh-my-zsh"
+    RUNZSH=no KEEP_ZSHRC=yes sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   fi
-}
-clone_plugin https://github.com/zsh-users/zsh-syntax-highlighting.git zsh-syntax-highlighting
-clone_plugin https://github.com/zsh-users/zsh-autosuggestions zsh-autosuggestions
+  clone_plugin() {
+    local repo="$1" name="$2" dir="$ZSH_CUSTOM/plugins/$2"
+    if [ ! -d "$dir" ]; then
+      log "Cloning zsh plugin: $name"
+      git clone --depth=1 "$repo" "$dir"
+    fi
+  }
+  clone_plugin https://github.com/zsh-users/zsh-syntax-highlighting.git zsh-syntax-highlighting
+  clone_plugin https://github.com/zsh-users/zsh-autosuggestions zsh-autosuggestions
+fi
 
 # ---------------------------------------------------------------------------
 # 3. Shell + git dotfiles
