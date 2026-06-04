@@ -60,8 +60,10 @@ if [ "${install_agent:-0}" -eq 1 ]; then
        once on the next wake (this is why launchd beats cron for laptops). -->
   <key>StartCalendarInterval</key>
   <dict><key>Hour</key><integer>12</integer><key>Minute</key><integer>0</integer></dict>
+  <!-- Include ~/.cargo/bin and ~/.local/bin so `brew bundle dump` can enumerate
+       cargo crates (and friends) that live outside the system PATH. -->
   <key>EnvironmentVariables</key>
-  <dict><key>PATH</key><string>/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string></dict>
+  <dict><key>PATH</key><string>$HOME/.cargo/bin:$HOME/.local/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin</string></dict>
   <key>StandardOutPath</key><string>$LOG</string>
   <key>StandardErrorPath</key><string>$LOG</string>
   <key>RunAtLoad</key><false/>
@@ -145,7 +147,11 @@ open(sys.argv[2], "a").write("\n")
 PY
 fi
 
-# Brewfile: formulae, casks, cargo, npm, vscode extensions
+# Brewfile: formulae, casks, cargo, npm, vscode extensions.
+# `brew bundle dump` enumerates cargo crates via the `cargo` binary; ensure it's
+# on PATH (it lives in ~/.cargo/bin, which launchd's minimal PATH omits) so the
+# dump never silently drops the cargo entries.
+[ -d "$HOME/.cargo/bin" ] && export PATH="$HOME/.cargo/bin:$PATH"
 if command -v brew >/dev/null 2>&1; then
   log "Regenerating Brewfile"
   brew bundle dump --file=Brewfile --force >/dev/null 2>&1 || warn "brew bundle dump failed"
