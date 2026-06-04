@@ -9,19 +9,23 @@
 #   --no-claude   Skip Claude Code config, skills, and plugins
 #   --no-warp     Skip Warp terminal settings
 #   --no-editors  Skip VS Code / Cursor settings
+#   --with-agent  Install the daily launchd backup agent (no prompt)
+#   --no-agent    Skip the daily-backup agent (no prompt)
 #   -h, --help    Show this help
 
 set -euo pipefail
 
-DO_BREW=1 DO_CLAUDE=1 DO_WARP=1 DO_EDITORS=1
+DO_BREW=1 DO_CLAUDE=1 DO_WARP=1 DO_EDITORS=1 AGENT=ask
 for arg in "$@"; do
   case "$arg" in
     --no-brew)    DO_BREW=0 ;;
     --no-claude)  DO_CLAUDE=0 ;;
     --no-warp)    DO_WARP=0 ;;
     --no-editors) DO_EDITORS=0 ;;
+    --with-agent) AGENT=yes ;;
+    --no-agent)   AGENT=no ;;
     -h|--help)
-      sed -n '3,16p' "$0" | sed 's/^# \{0,1\}//'
+      sed -n '3,14p' "$0" | sed 's/^# \{0,1\}//'
       exit 0 ;;
     *) echo "Unknown option: $arg (see --help)"; exit 1 ;;
   esac
@@ -181,6 +185,25 @@ PY
   fi
 fi
 
+# ---------------------------------------------------------------------------
+# 7. Optional: daily backup agent (launchd)
+# ---------------------------------------------------------------------------
+# Resolve to yes/no. When AGENT=ask, prompt only if we have an interactive
+# terminal; otherwise default to no so unattended installs never hang.
+if [ "$AGENT" = "ask" ]; then
+  if [ -t 0 ]; then
+    printf '\n\033[1;34m==>\033[0m Set up a daily launchd backup agent (captures live config -> git push)? [y/N] '
+    read -r reply
+    case "$reply" in [Yy]*) AGENT=yes ;; *) AGENT=no ;; esac
+  else
+    AGENT=no
+  fi
+fi
+if [ "$AGENT" = "yes" ]; then
+  log "Installing daily backup agent"
+  "$SCRIPT_DIR/sync.sh" --install-agent
+fi
+
 log "Done."
 [ -d "$BACKUP_DIR" ] && log "Backups of replaced files: $BACKUP_DIR"
 echo
@@ -188,3 +211,4 @@ echo "Next steps:"
 echo "  - Restart your terminal (or: exec zsh) to load the new shell config"
 echo "  - Edit ~/.zshrc.local for machine-specific paths/aliases"
 echo "  - Launch Claude Code to finish any pending plugin installs"
+[ "$AGENT" = "no" ] && echo "  - Enable daily backups anytime: ./sync.sh --install-agent"
