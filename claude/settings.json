@@ -1,4 +1,7 @@
 {
+  "env": {
+    "WORK_ORG": "SubzeroLabs"
+  },
   "model": "opus[1m]",
   "statusLine": {
     "type": "command",

@@ -5,6 +5,10 @@
 # start a session inside a repo NOT owned by this org — i.e. you're using the
 # work Claude profile on a non-work project and probably want `pcld` instead.
 # See claude/hooks/work-org-warning.sh. Leave empty to disable.
+#
+# NOTE: the warning reads WORK_ORG from claude/settings.json `env` (so it works
+# with `install.sh --claude-only`, which doesn't sync dotfiles). Keep this value
+# in sync with that one. This shell export is for general/shell use.
 export WORK_ORG="SubzeroLabs"
 
 # Solana
