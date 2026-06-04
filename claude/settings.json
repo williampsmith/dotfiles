@@ -93,6 +93,17 @@
           }
         ]
       }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.claude/hooks/work-org-warning.sh"
+          }
+        ]
+      }
     ]
   }
 }

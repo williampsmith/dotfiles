@@ -1,6 +1,11 @@
 # Work / blockchain toolchains. Sourced from ~/.zshrc.
 # Tracked in the dotfiles repo (real values, per your request).
 
+# Work GitHub org slug. Enables the Claude Code SessionStart warning when you
+# start a session inside a repo owned by this org
+# (see claude/hooks/work-org-warning.sh). Leave empty to disable.
+export WORK_ORG=""
+
 # Solana
 export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
 

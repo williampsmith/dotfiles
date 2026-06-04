@@ -163,6 +163,18 @@ PY
     warn "pnpm not found; status line will fall back to npx on first launch"
   fi
 
+  # Hooks (e.g. the SessionStart work-repo warning; settings.json references
+  # $HOME/.claude/hooks/*). Install the scripts and make them executable.
+  if [ -d "$SCRIPT_DIR/claude/hooks" ]; then
+    log "Installing Claude hooks"
+    mkdir -p "$HOME/.claude/hooks"
+    for h in "$SCRIPT_DIR"/claude/hooks/*; do
+      [ -f "$h" ] || continue
+      install_file "$h" "$HOME/.claude/hooks/$(basename "$h")"
+      chmod +x "$HOME/.claude/hooks/$(basename "$h")"
+    done
+  fi
+
   # Personal skills (rsync-style copy; preserves your edits elsewhere)
   log "Installing Claude skills"
   mkdir -p "$HOME/.claude/skills"
