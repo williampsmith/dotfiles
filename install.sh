@@ -142,8 +142,16 @@ open(dest_path, "a").write("\n")
 print("  merged ->", dest_path)
 PY
 
-  # ccstatusline
+  # ccstatusline: install the binary so settings.json can point at a fast local
+  # shim ($HOME/Library/pnpm/ccstatusline) instead of running `npx ...@latest`
+  # on every render (which is slow/flaky and renders a blank status line).
   install_file "$SCRIPT_DIR/config/ccstatusline/settings.json" "$HOME/.config/ccstatusline/settings.json"
+  if command -v pnpm >/dev/null 2>&1; then
+    log "Installing ccstatusline (pnpm global)"
+    pnpm add -g ccstatusline >/dev/null 2>&1 || warn "could not install ccstatusline"
+  else
+    warn "pnpm not found; status line will fall back to npx on first launch"
+  fi
 
   # Personal skills (rsync-style copy; preserves your edits elsewhere)
   log "Installing Claude skills"

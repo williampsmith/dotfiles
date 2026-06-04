@@ -2,7 +2,7 @@
   "model": "opus[1m]",
   "statusLine": {
     "type": "command",
-    "command": "npx -y ccstatusline@latest",
+    "command": "$HOME/Library/pnpm/ccstatusline",
     "padding": 0
   },
   "enabledPlugins": {
