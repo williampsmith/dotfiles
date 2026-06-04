@@ -1,18 +1,33 @@
 {
-  "workbench.colorTheme": "Snazzy",
+  "window.commandCenter": true,
   "security.workspace.trust.untrustedFiles": "open",
   "editor.minimap.enabled": false,
   "editor.inlayHints.enabled": "offUnlessPressed",
   "editor.formatOnSave": true,
-  "rust-analyzer.checkOnSave.command": "clippy",
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.linkedProjects": [
+    "/Users/williampsmith/dev/git/rialo/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/aggregator-example/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/event-example/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/hello-world/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/http-get-caller/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/incrementer/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/multi-http-get-aggregator/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/multi-http-get/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/multi-http-post-aggregator/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/price-reactor-aggregator/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/price-reactor/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/reminder-demo/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/websocket-stocks/Cargo.toml"
+  ],
   "editor.inlineSuggest.enabled": true,
   "[python]": {
     "editor.formatOnType": true
   },
-  "github.copilot.enable": {
-    "*": true,
-    "yaml": false,
-    "plaintext": true,
-    "markdown": false
-  }
+  "security.promptForLocalFileProtocolHandling": false,
+  "workbench.colorTheme": "Solarized Dark",
+  "claudeCode.preferredLocation": "panel",
+  "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
+  "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose",
+  "claudeCode.selectedModel": "opus[1m]"
 }

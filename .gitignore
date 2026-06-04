@@ -1,0 +1,8 @@
+.DS_Store
+**/.DS_Store
+
+# Per-machine zsh config (use .zshrc.local.example as a template)
+.zshrc.local
+
+# Heavy skill re-cloned by install.sh, never vendored
+claude/skills/excalidraw-diagram/

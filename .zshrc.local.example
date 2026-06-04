@@ -1,0 +1,9 @@
+# Per-machine config. Copy to ~/.zshrc.local and edit for THIS machine.
+# This file is a template; ~/.zshrc.local itself is gitignored.
+
+# --- OpenClaw ---
+# ssh into local mac mini running Dross
+# alias drossh="ssh dross@Drosss-Mac-mini.local"
+
+# --- Antigravity ---
+# export PATH="$HOME/.antigravity/antigravity/bin:$PATH"

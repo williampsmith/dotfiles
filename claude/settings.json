@@ -1,0 +1,98 @@
+{
+  "model": "opus[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "npx -y ccstatusline@latest",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "all-ios-skills@swift-ios-skills": true,
+    "vercel@claude-plugins-official": true,
+    "warp@claude-code-warp": true
+  },
+  "extraKnownMarketplaces": {
+    "swift-ios-skills": {
+      "source": {
+        "source": "github",
+        "repo": "dpearson2699/swift-ios-skills"
+      }
+    },
+    "claude-code-warp": {
+      "source": {
+        "source": "github",
+        "repo": "warpdotdev/claude-code-warp"
+      }
+    }
+  },
+  "voiceEnabled": true,
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -x '/Users/williampsmith/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/williampsmith/.orca/agent-hooks/claude-hook.sh'; fi"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -x '/Users/williampsmith/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/williampsmith/.orca/agent-hooks/claude-hook.sh'; fi"
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -x '/Users/williampsmith/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/williampsmith/.orca/agent-hooks/claude-hook.sh'; fi"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -x '/Users/williampsmith/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/williampsmith/.orca/agent-hooks/claude-hook.sh'; fi"
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -x '/Users/williampsmith/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/williampsmith/.orca/agent-hooks/claude-hook.sh'; fi"
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "if [ -x '/Users/williampsmith/.orca/agent-hooks/claude-hook.sh' ]; then /bin/sh '/Users/williampsmith/.orca/agent-hooks/claude-hook.sh'; fi"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,12 @@
+# Work / blockchain toolchains. Sourced from ~/.zshrc.
+# Tracked in the dotfiles repo (real values, per your request).
+
+# Solana
+export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
+
+# WASI SDK (Rialo wasm builds)
+export WASI_SDK_PATH="/opt/wasi-sdk-25"
+export WASI_SYSROOT="${WASI_SDK_PATH}/share/wasi-sysroot"
+
+# Rialo (managed by the rialoman installer)
+export PATH="$HOME/.local/share/rialo/bin:$PATH"

@@ -1,26 +1,37 @@
 {
-    "workbench.colorTheme": "Snazzy",
-    "security.workspace.trust.untrustedFiles": "open",
-    "editor.minimap.enabled": false,
-    "editor.inlayHints.enabled": "offUnlessPressed",
-    "editor.formatOnSave": true,
-    "rust-analyzer.checkOnSave.command": "clippy",
-    "editor.inlineSuggest.enabled": true,
-    "[python]": {
-        "editor.formatOnType": true
-    },
-    "github.copilot.enable": {
-        "*": true,
-        "yaml": false,
-        "plaintext": true,
-        "markdown": false
-    },
-    "cursor.cpp.disabledLanguages": [
-        "yaml",
-        "markdown"
-    ],
-    "security.promptForLocalFileProtocolHandling": false,
-    "cursor.cpp.enablePartialAccepts": true,
-    "cursor.composer.collapsePaneInputBoxPills": true,
-    "cursor.terminal.usePreviewBox": true
+  "window.commandCenter": true,
+  "security.workspace.trust.untrustedFiles": "open",
+  "editor.minimap.enabled": false,
+  "editor.inlayHints.enabled": "offUnlessPressed",
+  "editor.formatOnSave": true,
+  "rust-analyzer.check.command": "clippy",
+  "rust-analyzer.linkedProjects": [
+    "/Users/williampsmith/dev/git/rialo/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/aggregator-example/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/event-example/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/hello-world/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/http-get-caller/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/incrementer/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/multi-http-get-aggregator/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/multi-http-get/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/multi-http-post-aggregator/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/price-reactor-aggregator/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/price-reactor/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/reminder-demo/Cargo.toml",
+    "/Users/williampsmith/dev/git/rialo/programs/test-utils/websocket-stocks/Cargo.toml"
+  ],
+  "editor.inlineSuggest.enabled": true,
+  "[python]": {
+    "editor.formatOnType": true
+  },
+  "cursor.cpp.disabledLanguages": [
+    "yaml",
+    "markdown"
+  ],
+  "security.promptForLocalFileProtocolHandling": false,
+  "cursor.composer.collapsePaneInputBoxPills": true,
+  "cursor.terminal.usePreviewBox": true,
+  "workbench.colorTheme": "Solarized Dark",
+  "files.insertFinalNewline": true,
+  "window.autoDetectColorScheme": false
 }
