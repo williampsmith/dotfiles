@@ -33,6 +33,6 @@ if [ "$(lc "$owner")" != "$(lc "$WORK_ORG")" ]; then
   loc="$repo"
   [ -n "$owner" ] && loc="$owner/$repo"
   # loc and WORK_ORG are git/org names (no quotes/backslashes) → safe inline.
-  printf '{"systemMessage":"🚨 NON-WORK REPO (%s) — THIS IS NOT A %s REPO, BUT YOU ARE IN YOUR WORK CLAUDE PROFILE. IF THIS IS A PERSONAL PROJECT, EXIT AND USE pcld INSTEAD."}\n' "$loc" "$WORK_ORG"
+  printf '{"systemMessage":"🚨🚨🚨 NON-WORK REPO (%s) 🚨🚨🚨 — THIS IS NOT A %s REPO, BUT YOU ARE IN YOUR WORK CLAUDE PROFILE. IF THIS IS A PERSONAL PROJECT, EXIT AND USE claude-personal (alias: pcld) INSTEAD. ⚠️⚠️⚠️"}\n' "$loc" "$WORK_ORG"
 fi
 exit 0

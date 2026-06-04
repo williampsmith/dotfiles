@@ -7,6 +7,8 @@
 # Usage: ./install.sh [options]
 #   --dotfiles-only  Only copy shell/git dotfiles; skip brew, oh-my-zsh,
 #                    editors, Warp, Claude, and the backup agent
+#   --claude-only    Only install Claude config (settings, hooks, skills,
+#                    statusline, plugins); skip everything else
 #   --no-brew     Skip Homebrew install + `brew bundle`
 #   --no-claude   Skip Claude Code config, skills, and plugins
 #   --no-warp     Skip Warp terminal settings
@@ -17,10 +19,12 @@
 
 set -euo pipefail
 
-DO_BREW=1 DO_CLAUDE=1 DO_WARP=1 DO_EDITORS=1 DO_OMZ=1 DOTFILES_ONLY=0 AGENT=ask
+DO_BREW=1 DO_CLAUDE=1 DO_WARP=1 DO_EDITORS=1 DO_OMZ=1 DO_DOTFILES=1
+DOTFILES_ONLY=0 CLAUDE_ONLY=0 AGENT=ask
 for arg in "$@"; do
   case "$arg" in
     --dotfiles-only) DOTFILES_ONLY=1 ;;
+    --claude-only)   CLAUDE_ONLY=1 ;;
     --no-brew)    DO_BREW=0 ;;
     --no-claude)  DO_CLAUDE=0 ;;
     --no-warp)    DO_WARP=0 ;;
@@ -28,7 +32,7 @@ for arg in "$@"; do
     --with-agent) AGENT=yes ;;
     --no-agent)   AGENT=no ;;
     -h|--help)
-      sed -n '3,16p' "$0" | sed 's/^# \{0,1\}//'
+      sed -n '3,18p' "$0" | sed 's/^# \{0,1\}//'
       exit 0 ;;
     *) echo "Unknown option: $arg (see --help)"; exit 1 ;;
   esac
@@ -37,6 +41,11 @@ done
 # --dotfiles-only: copy shell/git files and nothing else.
 if [ "$DOTFILES_ONLY" -eq 1 ]; then
   DO_BREW=0 DO_CLAUDE=0 DO_WARP=0 DO_EDITORS=0 DO_OMZ=0 AGENT=no
+fi
+# --claude-only: install Claude config and nothing else.
+if [ "$CLAUDE_ONLY" -eq 1 ]; then
+  DO_BREW=0 DO_WARP=0 DO_EDITORS=0 DO_OMZ=0 DO_DOTFILES=0 AGENT=no
+  DO_CLAUDE=1
 fi
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -94,14 +103,16 @@ fi
 # ---------------------------------------------------------------------------
 # 3. Shell + git dotfiles
 # ---------------------------------------------------------------------------
-log "Installing shell + git dotfiles"
-install_file "$SCRIPT_DIR/.gitconfig"  "$HOME/.gitconfig"
-install_file "$SCRIPT_DIR/.zshenv"     "$HOME/.zshenv"
-install_file "$SCRIPT_DIR/.zshrc"      "$HOME/.zshrc"
-install_file "$SCRIPT_DIR/.zshrc.work" "$HOME/.zshrc.work"
-if [ ! -f "$HOME/.zshrc.local" ]; then
-  log "Seeding ~/.zshrc.local from template (edit it for this machine)"
-  cp "$SCRIPT_DIR/.zshrc.local.example" "$HOME/.zshrc.local"
+if [ "$DO_DOTFILES" -eq 1 ]; then
+  log "Installing shell + git dotfiles"
+  install_file "$SCRIPT_DIR/.gitconfig"  "$HOME/.gitconfig"
+  install_file "$SCRIPT_DIR/.zshenv"     "$HOME/.zshenv"
+  install_file "$SCRIPT_DIR/.zshrc"      "$HOME/.zshrc"
+  install_file "$SCRIPT_DIR/.zshrc.work" "$HOME/.zshrc.work"
+  if [ ! -f "$HOME/.zshrc.local" ]; then
+    log "Seeding ~/.zshrc.local from template (edit it for this machine)"
+    cp "$SCRIPT_DIR/.zshrc.local.example" "$HOME/.zshrc.local"
+  fi
 fi
 
 # ---------------------------------------------------------------------------

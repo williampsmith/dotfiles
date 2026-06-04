@@ -15,6 +15,7 @@ overwrites is backed up to `~/.dotfiles-backup/<timestamp>/` first.
 ```
 ./install.sh                # everything
 ./install.sh --dotfiles-only # only shell/git dotfiles (no brew/omz/editors/warp/claude/agent)
+./install.sh --claude-only  # only Claude config: settings, hooks, skills, statusline, plugins
 ./install.sh --no-brew      # skip Homebrew + brew bundle
 ./install.sh --no-claude    # skip Claude Code config/skills/plugins
 ./install.sh --no-warp      # skip Warp settings
