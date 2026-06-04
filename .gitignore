@@ -4,5 +4,8 @@
 # Per-machine zsh config (use .zshrc.local.example as a template)
 .zshrc.local
 
+# Claude Code project-local settings (per-machine permissions; not shared)
+.claude/settings.local.json
+
 # Heavy skill re-cloned by install.sh, never vendored
 claude/skills/excalidraw-diagram/
