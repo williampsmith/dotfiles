@@ -1,28 +1,38 @@
 #!/usr/bin/env bash
 #
-# Claude Code SessionStart hook: warn (visibly, to the user) when a session
-# starts inside a repo owned by $WORK_ORG. No-ops everywhere else.
+# Claude Code SessionStart hook: LOUDLY warn (visibly, to the user) when a
+# session starts inside a git repo that is NOT owned by $WORK_ORG — i.e. you're
+# about to use your default/work Claude profile on a non-work project, where you
+# probably meant `pcld` (personal). Silent inside $WORK_ORG repos.
 #
 # $WORK_ORG is your work GitHub org slug, exported from the shell (see
-# ~/.zshrc.work). The hook inherits it from the environment Claude was
-# launched in. Detection = the owner segment of the `origin` remote URL.
+# ~/.zshrc.work). Detection = the owner segment of the `origin` remote URL.
 set -euo pipefail
 
-# Nothing to compare against → stay silent.
+# No org configured → nothing to compare against.
 [ -n "${WORK_ORG:-}" ] || exit 0
 
-url="$(git config --get remote.origin.url 2>/dev/null || true)"
-[ -n "$url" ] || exit 0
+# Only act inside a git work tree (don't nag in scratch/home dirs).
+git rev-parse --is-inside-work-tree >/dev/null 2>&1 || exit 0
 
-# Extract the owner (org) from any of:
-#   git@host:OWNER/repo.git | https://host/OWNER/repo.git | ssh://git@host/OWNER/repo.git
-owner="$(printf '%s' "$url" | sed -E 's#^[a-z]+://##; s#^git@##; s#^[^/:]+[:/]##; s#/.*$##')"
-repo="$(basename "$url" .git)"
+url="$(git config --get remote.origin.url 2>/dev/null || true)"
+if [ -n "$url" ]; then
+  # Extract owner from git@host:OWNER/repo.git | https://host/OWNER/repo.git | ssh://...
+  owner="$(printf '%s' "$url" | sed -E 's#^[a-z]+://##; s#^git@##; s#^[^/:]+[:/]##; s#/.*$##')"
+  repo="$(basename "$url" .git)"
+else
+  owner=""
+  repo="$(basename "$(git rev-parse --show-toplevel 2>/dev/null || echo .)")"
+fi
 
 # Case-insensitive compare (GitHub org slugs are case-insensitive).
 lc() { printf '%s' "$1" | tr '[:upper:]' '[:lower:]'; }
-if [ "$(lc "$owner")" = "$(lc "$WORK_ORG")" ]; then
-  # owner/repo are GitHub names (no quotes/backslashes) → safe to inline in JSON.
-  printf '{"systemMessage":"⚠️  WORK REPO (%s/%s) — follow work IP and security policy. For personal projects, use a personal profile (pcld)."}\n' "$owner" "$repo"
+
+# Warn when the repo is NOT the work org's.
+if [ "$(lc "$owner")" != "$(lc "$WORK_ORG")" ]; then
+  loc="$repo"
+  [ -n "$owner" ] && loc="$owner/$repo"
+  # loc and WORK_ORG are git/org names (no quotes/backslashes) → safe inline.
+  printf '{"systemMessage":"🚨 NON-WORK REPO (%s) — THIS IS NOT A %s REPO, BUT YOU ARE IN YOUR WORK CLAUDE PROFILE. IF THIS IS A PERSONAL PROJECT, EXIT AND USE pcld INSTEAD."}\n' "$loc" "$WORK_ORG"
 fi
 exit 0

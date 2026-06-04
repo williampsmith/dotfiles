@@ -2,9 +2,10 @@
 # Tracked in the dotfiles repo (real values, per your request).
 
 # Work GitHub org slug. Enables the Claude Code SessionStart warning when you
-# start a session inside a repo owned by this org
-# (see claude/hooks/work-org-warning.sh). Leave empty to disable.
-export WORK_ORG=""
+# start a session inside a repo NOT owned by this org — i.e. you're using the
+# work Claude profile on a non-work project and probably want `pcld` instead.
+# See claude/hooks/work-org-warning.sh. Leave empty to disable.
+export WORK_ORG="SubzeroLabs"
 
 # Solana
 export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
