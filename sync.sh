@@ -99,9 +99,10 @@ CURSOR="$HOME/Library/Application Support/Cursor/User"
 log "Capturing live config into repo"
 
 # Shell + git (pure mirrors; the split lives in the live files themselves)
-pull "$HOME/.zshrc"      ".zshrc"
-pull "$HOME/.zshrc.work" ".zshrc.work"
-pull "$HOME/.zshenv"     ".zshenv"
+pull "$HOME/.zshrc"         ".zshrc"
+pull "$HOME/.zshrc.work"    ".zshrc.work"
+pull "$HOME/.zshrc.cleanup" ".zshrc.cleanup"
+pull "$HOME/.zshenv"        ".zshenv"
 pull "$HOME/.gitconfig"  ".gitconfig"
 
 # Editors

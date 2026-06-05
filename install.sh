@@ -107,8 +107,9 @@ if [ "$DO_DOTFILES" -eq 1 ]; then
   log "Installing shell + git dotfiles"
   install_file "$SCRIPT_DIR/.gitconfig"  "$HOME/.gitconfig"
   install_file "$SCRIPT_DIR/.zshenv"     "$HOME/.zshenv"
-  install_file "$SCRIPT_DIR/.zshrc"      "$HOME/.zshrc"
-  install_file "$SCRIPT_DIR/.zshrc.work" "$HOME/.zshrc.work"
+  install_file "$SCRIPT_DIR/.zshrc"         "$HOME/.zshrc"
+  install_file "$SCRIPT_DIR/.zshrc.work"    "$HOME/.zshrc.work"
+  install_file "$SCRIPT_DIR/.zshrc.cleanup" "$HOME/.zshrc.cleanup"
   if [ ! -f "$HOME/.zshrc.local" ]; then
     log "Seeding ~/.zshrc.local from template (edit it for this machine)"
     cp "$SCRIPT_DIR/.zshrc.local.example" "$HOME/.zshrc.local"

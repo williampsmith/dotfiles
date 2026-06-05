@@ -29,7 +29,8 @@ Two Claude dirs with distinct roles: **`claude/`** (no dot) is the payload distr
 - `install.sh` — one-command setup (forward). Primary entry point.
 - `sync.sh` — capture + backup (reverse); also manages the launchd agent.
 - `Brewfile` — formulae, casks, cargo crates, npm globals, VS Code extensions.
-- `.zshrc`, `.zshrc.work`, `.zshrc.local.example`, `.zshenv`, `.gitconfig` — shell + git.
+- `.zshrc`, `.zshrc.work`, `.zshrc.cleanup`, `.zshrc.local.example`, `.zshenv`, `.gitconfig` — shell + git.
+- `.zshrc.cleanup` — defines `dev-clean` (disk reclaim: cargo/JS build output, Docker, package caches; risky categories opt-in).
 - `claude/settings.json`, `claude/skills/` — Claude payload (18 skills; excalidraw re-cloned).
 - `warp/`, `config/ccstatusline/`, `vscode/`, `cursor/` — app config mirrors.
 

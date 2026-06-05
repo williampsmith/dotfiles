@@ -1,0 +1,192 @@
+# ---------------------------------------------------------------------------
+# dev-clean — reclaim disk from regenerable dev artifacts & caches
+#
+# Sourced by ~/.zshrc. Defines the `dev-clean` shell function. Codifies a
+# manual cleanup pass: cargo target dirs, JS build output, Docker cruft, and
+# global package caches. Destructive categories prompt before acting unless
+# you pass --yes; the genuinely risky ones (node_modules, unused Docker images
+# and volumes, rustup toolchains) stay opt-in behind explicit flags.
+#
+#   dev-clean              # interactive: report, then prompt per category
+#   dev-clean -y           # run all safe categories without prompting
+#   dev-clean -n           # report only; change nothing (dry run)
+#   dev-clean --dir ~/work # scan a different root for project artifacts
+#
+# Opt-in extras (each still respects -n / -y):
+#   --js-builds       also remove ambiguous dist/ build/ out/ dirs
+#   --node-modules    also remove every node_modules under the scan root
+#   --docker-images   also `docker image prune -a` (unused tagged images)
+#   --docker-volumes  also `docker volume prune` (DELETES volume data!)
+#   --rustup          interactively uninstall non-default rustup toolchains
+# ---------------------------------------------------------------------------
+
+dev-clean() {
+  emulate -L zsh 2>/dev/null
+  setopt local_options no_nomatch 2>/dev/null
+
+  local root="$HOME/dev/git"
+  local dry=0 assume_yes=0
+  local do_js_builds=0 do_node_modules=0 do_docker_images=0 do_docker_volumes=0 do_rustup=0
+
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      --dir) root="${2:?--dir needs a path}"; shift 2 ;;
+      -n|--report|--dry-run) dry=1; shift ;;
+      -y|--yes) assume_yes=1; shift ;;
+      --js-builds) do_js_builds=1; shift ;;
+      --node-modules) do_node_modules=1; shift ;;
+      --docker-images) do_docker_images=1; shift ;;
+      --docker-volumes) do_docker_volumes=1; shift ;;
+      --rustup) do_rustup=1; shift ;;
+      -h|--help)
+        sed -n '2,30p' "${funcsourcetrace[1]%:*}" 2>/dev/null | sed 's/^# \{0,1\}//'
+        return 0 ;;
+      *) echo "dev-clean: unknown option '$1' (try --help)" >&2; return 2 ;;
+    esac
+  done
+
+  root="${root%/}"
+  [ -d "$root" ] || { echo "dev-clean: scan root not found: $root" >&2; return 1; }
+
+  # --- helpers --------------------------------------------------------------
+  local _c_green='\033[0;32m' _c_yellow='\033[0;33m' _c_blue='\033[0;34m' _c_dim='\033[2m' _c_off='\033[0m'
+  _dc_section() { printf "\n${_c_blue}==> %s${_c_off}\n" "$1"; }
+  _dc_note()    { printf "${_c_dim}    %s${_c_off}\n" "$1"; }
+  _dc_done()    { printf "${_c_green}    %s${_c_off}\n" "$1"; }
+
+  # Human-readable size of a path (0 if missing); silent on errors.
+  _dc_size() { du -sh "$1" 2>/dev/null | cut -f1; }
+
+  # Confirm a destructive step. Returns 0=do it, 1=skip.
+  #   honours -n (always skip, report only) and -y (always proceed).
+  _dc_confirm() {
+    local prompt="$1"
+    if [ "$dry" -eq 1 ]; then _dc_note "[dry-run] would: $prompt"; return 1; fi
+    if [ "$assume_yes" -eq 1 ]; then return 0; fi
+    local reply
+    printf "${_c_yellow}    %s [y/N] ${_c_off}" "$prompt"
+    read -r reply
+    case "$reply" in [yY]|[yY][eE][sS]) return 0 ;; *) _dc_note "skipped"; return 1 ;; esac
+  }
+
+  printf "${_c_green}dev-clean${_c_off} — scan root: ${root}"
+  [ "$dry" -eq 1 ] && printf "  ${_c_dim}(dry run)${_c_off}"
+  [ "$assume_yes" -eq 1 ] && printf "  ${_c_dim}(auto-yes)${_c_off}"
+  printf "\n"
+
+  # --- 1. Cargo target/ dirs ------------------------------------------------
+  _dc_section "Cargo build artifacts (cargo clean)"
+  if command -v cargo >/dev/null 2>&1; then
+    local t d found=0
+    # Outermost target/ dirs (prune so we don't descend into nested ones),
+    # cleaned only where a sibling Cargo.toml proves it's a real workspace.
+    find "$root" -type d -name target -not -path '*/node_modules/*' -prune 2>/dev/null | while IFS= read -r t; do
+      d="${t%/target}"
+      [ -f "$d/Cargo.toml" ] || continue
+      found=1
+      _dc_note "$(_dc_size "$t")  $d"
+      if _dc_confirm "cargo clean in $d"; then
+        ( cd "$d" && cargo clean ) && _dc_done "cleaned"
+      fi
+    done
+    [ -z "$(find "$root" -type d -name target -not -path '*/node_modules/*' -prune 2>/dev/null)" ] && _dc_note "none found"
+  else
+    _dc_note "cargo not installed — skipping"
+  fi
+
+  # --- 2. JS framework build output -----------------------------------------
+  _dc_section "JS build output / caches"
+  local jb names
+  # Always-safe regenerable caches; dist/build/out added only with --js-builds
+  names=(.next .turbo .svelte-kit .parcel-cache .nuxt)
+  [ "$do_js_builds" -eq 1 ] && names+=(dist build out)
+  local n p
+  for n in "${names[@]}"; do
+    find "$root" -type d -name "$n" -not -path '*/node_modules/*' -prune 2>/dev/null | while IFS= read -r p; do
+      _dc_note "$(_dc_size "$p")  $p"
+      if _dc_confirm "rm -rf $p"; then rm -rf "$p" && _dc_done "removed"; fi
+    done
+  done
+  [ "$do_js_builds" -eq 0 ] && _dc_note "(dist/ build/ out/ skipped — pass --js-builds to include them)"
+
+  # --- 3. node_modules (opt-in) ---------------------------------------------
+  if [ "$do_node_modules" -eq 1 ]; then
+    _dc_section "node_modules (--node-modules)"
+    find "$root" -type d -name node_modules -prune 2>/dev/null | while IFS= read -r p; do
+      _dc_note "$(_dc_size "$p")  $p"
+      if _dc_confirm "rm -rf $p"; then rm -rf "$p" && _dc_done "removed"; fi
+    done
+  fi
+
+  # --- 4. Docker ------------------------------------------------------------
+  _dc_section "Docker"
+  if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
+    docker system df 2>/dev/null | sed 's/^/    /'
+    if _dc_confirm "docker builder prune -af (build cache)"; then
+      docker builder prune -af >/dev/null 2>&1 && _dc_done "build cache pruned"
+    fi
+    if _dc_confirm "docker system prune -f (stopped containers, dangling images, networks)"; then
+      docker system prune -f >/dev/null 2>&1 && _dc_done "pruned"
+    fi
+    if [ "$do_docker_images" -eq 1 ]; then
+      if _dc_confirm "docker image prune -af (ALL images not used by a container)"; then
+        docker image prune -af >/dev/null 2>&1 && _dc_done "unused images removed"
+      fi
+    else
+      _dc_note "(unused tagged images kept — pass --docker-images to remove)"
+    fi
+    if [ "$do_docker_volumes" -eq 1 ]; then
+      if _dc_confirm "docker volume prune -f (DELETES data in unused volumes)"; then
+        docker volume prune -f >/dev/null 2>&1 && _dc_done "unused volumes removed"
+      fi
+    else
+      _dc_note "(unused volumes kept — pass --docker-volumes to remove; may hold DB data)"
+    fi
+  else
+    _dc_note "docker not installed or daemon not running — skipping"
+  fi
+
+  # --- 5. Global package caches ---------------------------------------------
+  _dc_section "Global package caches"
+  if command -v npm >/dev/null 2>&1; then
+    _dc_note "$(_dc_size "$HOME/.npm")  ~/.npm (npm cache)"
+    if _dc_confirm "npm cache clean --force"; then npm cache clean --force >/dev/null 2>&1 && _dc_done "npm cache cleared"; fi
+  fi
+  if command -v pnpm >/dev/null 2>&1; then
+    _dc_note "$(_dc_size "${PNPM_HOME:-$HOME/Library/pnpm}")  pnpm store"
+    if _dc_confirm "pnpm store prune (drop unreferenced packages)"; then pnpm store prune >/dev/null 2>&1 && _dc_done "pnpm store pruned"; fi
+  fi
+  local cargo_reg="${CARGO_HOME:-$HOME/.cargo}/registry"
+  if [ -d "$cargo_reg" ]; then
+    _dc_note "$(_dc_size "$cargo_reg/cache")+$(_dc_size "$cargo_reg/src")  cargo registry cache+src"
+    if _dc_confirm "clear cargo registry cache/ and src/ (kept index/)"; then
+      rm -rf "$cargo_reg/cache" "$cargo_reg/src" && _dc_done "cargo registry cleared"
+    fi
+  fi
+
+  # --- 6. rustup toolchains (opt-in, interactive) ---------------------------
+  if [ "$do_rustup" -eq 1 ]; then
+    _dc_section "rustup toolchains (--rustup)"
+    if command -v rustup >/dev/null 2>&1; then
+      local default_tc tc tc_name
+      default_tc="$(rustup show active-toolchain 2>/dev/null | awk '{print $1}')"
+      _dc_note "keeping active/default: ${default_tc:-unknown}, plus stable/nightly/named are still offered"
+      du -sh "$HOME/.rustup/toolchains/"*/ 2>/dev/null | sort -rh | while IFS= read -r line; do
+        tc="${line##*/}"; tc="${tc%/}"
+        tc_name="$(basename "$tc")"
+        # Never offer to remove the active/default toolchain.
+        [ "$tc_name" = "$default_tc" ] && continue
+        _dc_note "$line"
+        if _dc_confirm "rustup toolchain uninstall $tc_name"; then
+          rustup toolchain uninstall "$tc_name" >/dev/null 2>&1 && _dc_done "removed $tc_name"
+        fi
+      done
+    else
+      _dc_note "rustup not installed — skipping"
+    fi
+  fi
+
+  _dc_section "Done"
+  _dc_note "Tip: 'dev-clean -n' reports without changing anything; 'dev-clean --help' lists all flags."
+  unset -f _dc_section _dc_note _dc_done _dc_size _dc_confirm 2>/dev/null
+}

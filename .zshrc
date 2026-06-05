@@ -92,6 +92,12 @@ claude-personal() {
 alias pcld='claude-personal'
 
 # ---------------------------------------------------------------------------
+# Maintenance helpers (tracked in dotfiles repo)
+#   ~/.zshrc.cleanup -> `dev-clean` disk-reclaim function
+# ---------------------------------------------------------------------------
+[ -f "$HOME/.zshrc.cleanup" ] && source "$HOME/.zshrc.cleanup"
+
+# ---------------------------------------------------------------------------
 # Machine- and work-specific config (kept out of the portable core)
 #   ~/.zshrc.work  -> work toolchains (tracked in dotfiles repo)
 #   ~/.zshrc.local -> per-machine paths & aliases (NOT tracked; see .example)
