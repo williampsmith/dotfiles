@@ -104,3 +104,6 @@ alias pcld='claude-personal'
 # ---------------------------------------------------------------------------
 [ -f "$HOME/.zshrc.work" ] && source "$HOME/.zshrc.work"
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+
+# maestro-runner
+export PATH="$HOME/.maestro-runner/bin:$PATH"

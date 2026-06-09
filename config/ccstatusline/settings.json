@@ -17,6 +17,33 @@
         "color": "brightBlack"
       },
       {
+        "id": "u1",
+        "type": "separator"
+      },
+      {
+        "id": "u2",
+        "type": "session-usage",
+        "color": "green"
+      },
+      {
+        "id": "u3",
+        "type": "separator"
+      },
+      {
+        "id": "u4",
+        "type": "weekly-usage",
+        "color": "blue"
+      },
+      {
+        "id": "u5",
+        "type": "separator"
+      },
+      {
+        "id": "u6",
+        "type": "reset-timer",
+        "color": "brightBlack"
+      },
+      {
         "id": "4",
         "type": "separator"
       },
