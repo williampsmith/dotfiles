@@ -22,8 +22,10 @@ Two directions, plus a three-tier shell split:
 - **Shell tiers:** `.zshrc` (portable core) sources `~/.zshrc.work` (tracked work toolchains)
   then `~/.zshrc.local` (gitignored, per-machine; seeded from `.zshrc.local.example`).
 
-Two Claude dirs with distinct roles: **`claude/`** (no dot) is the payload distributed to
-`~/.claude`; **`.claude/`** (dot) is Claude Code config for working *in this repo*.
+Three Claude dirs with distinct roles: **`claude/`** (no dot) is the payload distributed to
+`~/.claude`; **`claude-personal/`** is the curated payload merged into `~/.claude-personal`
+(the separate profile launched by the `pcld`/`claude-personal` shell function via
+`CLAUDE_CONFIG_DIR`); **`.claude/`** (dot) is Claude Code config for working *in this repo*.
 
 ## Key Directories & Entry Points
 - `install.sh` — one-command setup (forward). Primary entry point.
@@ -32,6 +34,7 @@ Two Claude dirs with distinct roles: **`claude/`** (no dot) is the payload distr
 - `.zshrc`, `.zshrc.work`, `.zshrc.cleanup`, `.zshrc.local.example`, `.zshenv`, `.gitconfig` — shell + git.
 - `.zshrc.cleanup` — defines `dev-clean` (disk reclaim: cargo/JS build output, Docker, package caches; risky categories opt-in).
 - `claude/settings.json`, `claude/skills/` — Claude payload (18 skills; excalidraw re-cloned).
+- `claude-personal/settings.json` — curated settings for the `pcld` profile (`~/.claude-personal`).
 - `warp/`, `config/ccstatusline/`, `vscode/`, `cursor/` — app config mirrors.
 
 ## Commands
@@ -44,7 +47,7 @@ Two Claude dirs with distinct roles: **`claude/`** (no dot) is the payload distr
 - Build / Test / Lint / Format / Run: none configured
 
 JSON validity check:
-`for f in claude/settings.json config/ccstatusline/settings.json vscode/*.json cursor/*.json; do python3 -m json.tool "$f" >/dev/null || echo "BAD: $f"; done`
+`for f in claude/settings.json claude-personal/settings.json config/ccstatusline/settings.json vscode/*.json cursor/*.json; do python3 -m json.tool "$f" >/dev/null || echo "BAD: $f"; done`
 
 ## Conventions
 - Scripts are **idempotent** and safe to re-run; use `set -euo pipefail`.

@@ -164,6 +164,27 @@ open(dest_path, "a").write("\n")
 print("  merged ->", dest_path)
 PY
 
+  # Same merge for the personal profile (~/.claude-personal, used by the `pcld`/
+  # `claude-personal` shell function via CLAUDE_CONFIG_DIR). Carries the statusLine
+  # directive so it renders the shared ccstatusline config, not Claude's default.
+  if [ -f "$SCRIPT_DIR/claude-personal/settings.json" ]; then
+    mkdir -p "$HOME/.claude-personal"
+    python3 - "$SCRIPT_DIR/claude-personal/settings.json" "$HOME/.claude-personal/settings.json" <<'PY'
+import json, os, sys
+curated_path, dest_path = sys.argv[1], sys.argv[2]
+curated = json.load(open(curated_path))
+dest = {}
+if os.path.exists(dest_path):
+    try: dest = json.load(open(dest_path))
+    except Exception: dest = {}
+# Durable keys win; everything else in dest (e.g. permissions) is preserved.
+dest.update(curated)
+json.dump(dest, open(dest_path, "w"), indent=2)
+open(dest_path, "a").write("\n")
+print("  merged ->", dest_path)
+PY
+  fi
+
   # ccstatusline: install the binary so settings.json can point at a fast local
   # shim ($HOME/Library/pnpm/ccstatusline) instead of running `npx ...@latest`
   # on every render (which is slow/flaky and renders a blank status line).
