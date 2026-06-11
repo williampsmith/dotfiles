@@ -30,6 +30,7 @@ overwrites is backed up to `~/.dotfiles-backup/<timestamp>/` first.
 | **Shell** | `.zshrc`, `.zshenv`, `.zshrc.work` | oh-my-zsh + plugins (`z`, `sudo`, autosuggestions, syntax-highlighting, …), completion tuning, toolchain PATHs. |
 | **Git** | `.gitconfig` | aliases, `delta` pager, rerere, credential manager. |
 | **Claude Code** | `claude/settings.json`, `claude/skills/` | Curated global settings (model, statusline, plugins, marketplaces, voice, hooks) + 18 personal skills. `excalidraw-diagram` is cloned fresh by the installer. |
+| **Claude (personal profile)** | `claude-personal/settings.json` | Curated settings for the separate `pcld`/`claude-personal` profile (`~/.claude-personal`); carries the statusline directive so it matches the default profile. |
 | **ccstatusline** | `config/ccstatusline/settings.json` | Status-line layout. |
 | **Warp** | `warp/settings.toml`, `warp/keybindings.yaml`, `warp/tab_configs/` | Theme (`solarized_dark`), font, input mode, hotkeys, tab configs. |
 | **Editors** | `vscode/`, `cursor/` | settings + keybindings. |

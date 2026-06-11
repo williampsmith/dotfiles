@@ -1,0 +1,27 @@
+{
+  "enabledPlugins": {
+    "mahoraga@mahoraga": true,
+    "warp@claude-code-warp": true
+  },
+  "extraKnownMarketplaces": {
+    "mahoraga": {
+      "source": {
+        "source": "github",
+        "repo": "williampsmith/mahoraga",
+        "path": "/Users/williampsmith/dev/git/mahoraga"
+      }
+    },
+    "claude-code-warp": {
+      "source": {
+        "source": "github",
+        "repo": "warpdotdev/claude-code-warp"
+      }
+    }
+  },
+  "theme": "dark",
+  "statusLine": {
+    "type": "command",
+    "command": "$HOME/Library/pnpm/ccstatusline",
+    "padding": 0
+  }
+}

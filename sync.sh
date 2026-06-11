@@ -148,6 +148,21 @@ open(sys.argv[2], "a").write("\n")
 PY
 fi
 
+# Claude personal profile (~/.claude-personal, used by `pcld`): same curation.
+if [ -f "$HOME/.claude-personal/settings.json" ]; then
+  mkdir -p claude-personal
+  python3 - "$HOME/.claude-personal/settings.json" "claude-personal/settings.json" <<'PY'
+import json, sys
+live = json.load(open(sys.argv[1]))
+live.pop("permissions", None)          # volatile; Claude manages it locally
+ep = live.get("enabledPlugins")
+if isinstance(ep, dict):
+    live["enabledPlugins"] = {k: v for k, v in ep.items() if not k.startswith("superpowers@")}
+json.dump(live, open(sys.argv[2], "w"), indent=2)
+open(sys.argv[2], "a").write("\n")
+PY
+fi
+
 # Brewfile: formulae, casks, cargo, npm, vscode extensions.
 # `brew bundle dump` enumerates cargo crates via the `cargo` binary; ensure it's
 # on PATH (it lives in ~/.cargo/bin, which launchd's minimal PATH omits) so the
