@@ -7,8 +7,7 @@
     "mahoraga": {
       "source": {
         "source": "github",
-        "repo": "williampsmith/mahoraga",
-        "path": "/Users/williampsmith/dev/git/mahoraga"
+        "repo": "williampsmith/mahoraga"
       }
     },
     "claude-code-warp": {
