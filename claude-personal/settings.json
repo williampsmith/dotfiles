@@ -1,4 +1,10 @@
 {
+  "model": "claude-fable-5[1m]",
+  "statusLine": {
+    "type": "command",
+    "command": "$HOME/Library/pnpm/ccstatusline",
+    "padding": 0
+  },
   "enabledPlugins": {
     "mahoraga@mahoraga": true,
     "warp@claude-code-warp": true
@@ -17,10 +23,5 @@
       }
     }
   },
-  "theme": "dark",
-  "statusLine": {
-    "type": "command",
-    "command": "$HOME/Library/pnpm/ccstatusline",
-    "padding": 0
-  }
+  "theme": "dark"
 }
