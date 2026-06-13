@@ -2,7 +2,7 @@
   "env": {
     "WORK_ORG": "SubzeroLabs"
   },
-  "model": "claude-fable-5[1m]",
+  "model": "opus[1m]",
   "hooks": {
     "UserPromptSubmit": [
       {
