@@ -107,3 +107,4 @@ alias pcld='claude-personal'
 
 # maestro-runner
 export PATH="$HOME/.maestro-runner/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"

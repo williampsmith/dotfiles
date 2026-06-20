@@ -1,37 +1,5 @@
 {
-  "env": {
-    "WORK_ORG": "SubzeroLabs"
-  },
   "model": "opus[1m]",
-  "statusLine": {
-    "type": "command",
-    "command": "$HOME/Library/pnpm/ccstatusline",
-    "padding": 0
-  },
-  "enabledPlugins": {
-    "context7@claude-plugins-official": true,
-    "code-simplifier@claude-plugins-official": true,
-    "playwright@claude-plugins-official": true,
-    "rust-analyzer-lsp@claude-plugins-official": true,
-    "all-ios-skills@swift-ios-skills": true,
-    "vercel@claude-plugins-official": true,
-    "warp@claude-code-warp": true
-  },
-  "extraKnownMarketplaces": {
-    "swift-ios-skills": {
-      "source": {
-        "source": "github",
-        "repo": "dpearson2699/swift-ios-skills"
-      }
-    },
-    "claude-code-warp": {
-      "source": {
-        "source": "github",
-        "repo": "warpdotdev/claude-code-warp"
-      }
-    }
-  },
-  "voiceEnabled": true,
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -96,17 +64,36 @@
           }
         ]
       }
-    ],
-    "SessionStart": [
-      {
-        "matcher": "startup|resume|clear",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "$HOME/.claude/hooks/work-org-warning.sh"
-          }
-        ]
-      }
     ]
-  }
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "$HOME/Library/pnpm/ccstatusline",
+    "padding": 0
+  },
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "code-simplifier@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "rust-analyzer-lsp@claude-plugins-official": true,
+    "all-ios-skills@swift-ios-skills": true,
+    "vercel@claude-plugins-official": true,
+    "warp@claude-code-warp": true
+  },
+  "extraKnownMarketplaces": {
+    "swift-ios-skills": {
+      "source": {
+        "source": "github",
+        "repo": "dpearson2699/swift-ios-skills"
+      }
+    },
+    "claude-code-warp": {
+      "source": {
+        "source": "github",
+        "repo": "warpdotdev/claude-code-warp"
+      }
+    }
+  },
+  "theme": "dark",
+  "voiceEnabled": true
 }
