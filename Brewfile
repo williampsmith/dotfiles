@@ -23,6 +23,8 @@ brew "git-delta"
 brew "imagemagick"
 # Lightweight and flexible command-line JSON processor
 brew "jq"
+# Postgres C API library
+brew "libpq", link: true
 # Next-gen compiler infrastructure
 brew "llvm"
 # Open-source, cross-platform JavaScript runtime environment
