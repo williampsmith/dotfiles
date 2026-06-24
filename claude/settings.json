@@ -108,6 +108,6 @@
       }
     }
   },
-  "voiceEnabled": true,
-  "tui": "fullscreen"
+  "tui": "fullscreen",
+  "voiceEnabled": true
 }
