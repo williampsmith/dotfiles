@@ -1,10 +1,14 @@
 tap "supabase/tap"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
+# CLI to manage E2B sandboxes and templates
+brew "e2b"
+# Command-line tools for fly.io services
+brew "flyctl"
 # GitHub command-line tool
 brew "gh"
 # Syntax-highlighting pager for git and diff output
 brew "git-delta"
-# Open-source, cross-platform JavaScript runtime environment
-brew "node"
 # Fast, disk space efficient package manager
 brew "pnpm"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
@@ -17,4 +21,3 @@ vscode "github.copilot-chat"
 vscode "github.vscode-github-actions"
 vscode "supabase.vscode-supabase-extension"
 cargo "cargo-nextest"
-npm "corepack"
