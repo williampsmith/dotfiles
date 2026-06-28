@@ -108,3 +108,9 @@ alias pcld='claude-personal'
 # maestro-runner
 export PATH="$HOME/.maestro-runner/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+
+
+
+# >>> railway initialize >>>
+source "$HOME/.railway/env"
+# <<< railway initialize <<<
