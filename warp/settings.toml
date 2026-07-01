@@ -8,7 +8,7 @@ input_mode = "waterfall"
 show_block_dividers = false
 
 [appearance.window]
-zoom_level = 110
+zoom_level = 125
 
 [appearance.themes]
 theme = "solarized_dark"
