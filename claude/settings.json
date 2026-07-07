@@ -78,7 +78,8 @@
     "rust-analyzer-lsp@claude-plugins-official": true,
     "all-ios-skills@swift-ios-skills": true,
     "vercel@claude-plugins-official": true,
-    "warp@claude-code-warp": true
+    "warp@claude-code-warp": true,
+    "paper-desktop@paper": true
   },
   "extraKnownMarketplaces": {
     "swift-ios-skills": {
@@ -91,6 +92,12 @@
       "source": {
         "source": "github",
         "repo": "warpdotdev/claude-code-warp"
+      }
+    },
+    "paper": {
+      "source": {
+        "source": "github",
+        "repo": "paper-design/agent-plugins"
       }
     }
   },
