@@ -3,6 +3,8 @@ tap "supabase/tap"
 brew "node"
 # CLI to manage E2B sandboxes and templates
 brew "e2b"
+# Play, record, convert, and stream select audio and video codecs
+brew "ffmpeg"
 # Command-line tools for fly.io services
 brew "flyctl"
 # GitHub command-line tool

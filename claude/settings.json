@@ -102,5 +102,6 @@
     }
   },
   "theme": "dark",
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "effortLevel": "xhigh"
 }
