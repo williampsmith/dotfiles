@@ -13,6 +13,8 @@ brew "gh"
 brew "git-delta"
 # Fast, disk space efficient package manager
 brew "pnpm"
+# Command-line interface for running and interacting with Temporal Server and UI
+brew "temporal"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
 # App to build and share containerised applications and microservices
