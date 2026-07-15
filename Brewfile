@@ -63,6 +63,8 @@ brew "yq"
 cask "docker-desktop"
 # Cross-platform Git credential storage for multiple hosting providers
 cask "git-credential-manager"
+# Reverse proxy, secure introspectable tunnels to localhost
+cask "ngrok"
 # Tool to create native applications from command-line scripts
 cask "platypus"
 vscode "alexanderbast.vscode-snazzy"
