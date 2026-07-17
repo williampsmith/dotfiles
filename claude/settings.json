@@ -2,7 +2,7 @@
   "env": {
     "WORK_ORG": "SubzeroLabs"
   },
-  "model": "opus",
+  "model": "fable",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -109,5 +109,6 @@
     }
   },
   "tui": "fullscreen",
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "effortLevel": "xhigh"
 }
