@@ -22,6 +22,8 @@ should_dim_inactive_panes = true
 
 [appearance.vertical_tabs]
 enabled = true
+display_granularity = "panes"
+view_mode = "compact"
 
 [account]
 is_settings_sync_enabled = true
