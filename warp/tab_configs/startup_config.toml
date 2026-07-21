@@ -1,0 +1,8 @@
+name = "New tab: athema"
+
+[[panes]]
+id = "main"
+type = "agent"
+directory = "/Users/williampsmith/dev/git/athema"
+
+[params]

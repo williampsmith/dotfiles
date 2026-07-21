@@ -1,5 +1,5 @@
 {
-  "model": "opus",
+  "model": "claude-fable-5[1m]",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -101,7 +101,7 @@
       }
     }
   },
-  "effortLevel": "xhigh",
+  "effortLevel": "high",
   "theme": "dark",
   "voiceEnabled": true
 }
