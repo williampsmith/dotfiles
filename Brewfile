@@ -14,7 +14,7 @@ brew "git-delta"
 # Fast, disk space efficient package manager
 brew "pnpm"
 # Object-relational database system
-brew "postgresql@18", link: true
+brew "postgresql@18", restart_service: :changed, link: true
 # Command-line interface for running and interacting with Temporal Server and UI
 brew "temporal"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
