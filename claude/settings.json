@@ -108,7 +108,7 @@
       }
     }
   },
+  "effortLevel": "xhigh",
   "tui": "fullscreen",
-  "voiceEnabled": true,
-  "effortLevel": "xhigh"
+  "voiceEnabled": true
 }
