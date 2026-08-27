@@ -15,8 +15,12 @@ brew "git-delta"
 brew "pnpm"
 # Object-relational database system
 brew "postgresql@18", restart_service: :changed, link: true
+# Postgres development platform
+brew "supabase"
 # Command-line interface for running and interacting with Temporal Server and UI
 brew "temporal"
+# Generate your Xcode project from a spec file and your folder structure
+brew "xcodegen"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
 brew "yq"
 # App to build and share containerised applications and microservices
