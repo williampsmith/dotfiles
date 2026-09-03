@@ -68,6 +68,7 @@ cask "ngrok"
 # Tool to create native applications from command-line scripts
 cask "platypus"
 vscode "alexanderbast.vscode-snazzy"
+vscode "anysphere.remote-containers"
 vscode "anysphere.remote-ssh"
 vscode "eamodio.gitlens"
 vscode "rust-lang.rust-analyzer"
