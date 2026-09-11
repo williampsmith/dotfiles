@@ -110,5 +110,38 @@
   },
   "effortLevel": "high",
   "tui": "fullscreen",
+  "autoMode": {
+    "soft_deny": [
+      "$defaults",
+      "Bash(kubectl delete:*) in this repo's k8s namespaces (latch-web2, git, import)",
+      "Bash(aws s3 rm:*) \u2014 cloud storage delete carve-out beyond default coverage, scoped to rialo-program-artifacts and related AWS resources used by this repo"
+    ],
+    "environment": [
+      "### Org-wide",
+      "**Organization**: SubzeroLabs (github.com/SubzeroLabs) \u2014 rialo-apps monorepo",
+      "**Cloud provider(s)**: AWS (ECR-based deploys), Cloudflare (Pages for `sites/`)",
+      "**Repository visibility**: private (SubzeroLabs/rialo-apps, confirmed via gh)",
+      "**Internal sharing / snippet hosting**: None configured \u2014 treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: CI secrets referenced by name only (ARGOCD_AUTH_TOKEN, INFRA_DEPLOY_KEY, SLACK_WEBHOOK_URL, TURBOREPO_CACHE_KEY) \u2014 values not accessible; service `.env.dev`/`.env.example` files under services/* and sites/* hold local secrets, never commit or print their contents",
+      "**Default / protected branches**: `main` (default branch; ruleset active on `main`; protected via ruleset, not classic branch protection)",
+      "**CI/CD deploy targets**: services/* \u2192 Docker build \u2192 ECR \u2192 ArgoCD \u2192 EKS; sites/* \u2192 static build \u2192 Cloudflare Pages",
+      "**Network posture**: None configured",
+      "**Host containment**: None configured \u2014 assume Claude Code runs on an ordinary developer machine with open internet",
+      "**Source control**: SubzeroLabs/rialo-apps (github.com:SubzeroLabs/rialo-apps.git) and its remote only \u2014 no additional orgs configured",
+      "**Trusted internal domains**: playground.rialo.io, api.rialo-demos.com, api.playground.rialo.io, testnet.rialo.io",
+      "**Trusted cloud buckets**: rialo-program-artifacts (config-derived \u2014 not a confirmed upload destination; uploads of local data still require confirmation)",
+      "**Key internal services**: None configured",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: service `.env.dev`/`.env.example`/`.env.staging` files (services/compliance-oracle, services/latch-router, services/points-api, services/predict-api, services/price-feed, services/rialo-fi, services/scorpion-evidence-indexer, services/stablecoin-tx-service, services/vault-tx, services/wallet-api, sites/compliant-stablecoin, sites/ermac-webapp, sites/guarded-vault, sites/scorpion), drizzle migration files named with 'secret' (services/agent-grand-prix-api/drizzle/0015_secret_zzzax.sql, 0044_secret_harpoon.sql; services/predict-api/drizzle/0000_freezing_secret_warriors.sql), runbooks/LOCAL-SECRETS.md \u2014 share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment",
+      "**Protected deployment namespaces / environments**: None configured \u2014 fall back to the Sensitive remote targets heuristic (k8s namespaces observed in use: latch-web2, git, import \u2014 none carry a prod/production segment)",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment; also treat infra/argocd/charts/rialo-apps-service and infra/argocd/services/<name>/values.yaml as sensitive deployment config given the ArgoCD/EKS deploy path",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development (rialo-apps monorepo \u2014 TypeScript/Turborepo services, sites, and Venus on-chain programs)",
+      "**Trusted repo**: /Users/williampsmith/dev/git/rialo-apps (working directory), remote github.com:SubzeroLabs/rialo-apps.git \u2014 private repo, confidential material may live here but secrets/regulated data are never cleared in by visibility alone",
+      "**Org-specific CLIs**: pnpm (required package manager per CLAUDE.md \u2014 npm/yarn banned), turbo, kubectl (observed use against latch-web2/git/import namespaces), aws, railway (seen in shell history, unclear scope \u2014 treat as personal, not project-verified)"
+    ]
+  },
   "voiceEnabled": true
 }
