@@ -17,6 +17,8 @@ brew "pnpm"
 brew "postgresql@18", restart_service: :changed, link: true
 # Postgres development platform
 brew "supabase"
+# Tool to enforce Swift style and conventions
+brew "swiftlint"
 # Command-line interface for running and interacting with Temporal Server and UI
 brew "temporal"
 # Generate your Xcode project from a spec file and your folder structure
