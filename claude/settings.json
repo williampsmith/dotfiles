@@ -143,5 +143,10 @@
       "**Org-specific CLIs**: pnpm (required package manager per CLAUDE.md \u2014 npm/yarn banned), turbo, kubectl (observed use against latch-web2/git/import namespaces), aws, railway (seen in shell history, unclear scope \u2014 treat as personal, not project-verified)"
     ]
   },
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "modelSettings": {
+    "claude-fable-5-1": {
+      "effortLevel": "xhigh"
+    }
+  }
 }
