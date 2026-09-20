@@ -92,7 +92,9 @@
     "rust-analyzer-lsp@claude-plugins-official": true,
     "all-ios-skills@swift-ios-skills": true,
     "vercel@claude-plugins-official": true,
-    "warp@claude-code-warp": true
+    "warp@claude-code-warp": true,
+    "notion@claude-plugins-official": true,
+    "linear@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "swift-ios-skills": {
@@ -109,6 +111,11 @@
     }
   },
   "effortLevel": "high",
+  "modelSettings": {
+    "claude-fable-5-1": {
+      "effortLevel": "xhigh"
+    }
+  },
   "tui": "fullscreen",
   "autoMode": {
     "soft_deny": [
@@ -143,10 +150,5 @@
       "**Org-specific CLIs**: pnpm (required package manager per CLAUDE.md \u2014 npm/yarn banned), turbo, kubectl (observed use against latch-web2/git/import namespaces), aws, railway (seen in shell history, unclear scope \u2014 treat as personal, not project-verified)"
     ]
   },
-  "voiceEnabled": true,
-  "modelSettings": {
-    "claude-fable-5-1": {
-      "effortLevel": "xhigh"
-    }
-  }
+  "voiceEnabled": true
 }
