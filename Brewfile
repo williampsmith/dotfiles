@@ -6,7 +6,7 @@ brew "bazelisk"
 # Powerful, enterprise-ready, open source web server with automatic HTTPS
 brew "caddy"
 # Cryptography and SSL/TLS Toolkit
-brew "openssl@3"
+brew "openssl@3", link: true
 # Dependency manager for Cocoa projects
 brew "cocoapods"
 # Pack, ship and run any application as a lightweight container
