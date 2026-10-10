@@ -63,6 +63,7 @@ brew "xcodegen"
 brew "yq"
 # App to build and share containerised applications and microservices
 cask "docker-desktop"
+cask "font-hack-nerd-font"
 # Cross-platform Git credential storage for multiple hosting providers
 cask "git-credential-manager"
 # Reverse proxy, secure introspectable tunnels to localhost
