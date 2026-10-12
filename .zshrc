@@ -100,3 +100,4 @@ export PATH="$HOME/.local/bin:$PATH"
 # >>> railway initialize >>>
 source "$HOME/.railway/env"
 # <<< railway initialize <<<
+export PATH=$PATH:$HOME/.maestro/bin

@@ -1,4 +1,6 @@
 tap "supabase/tap"
+# Dependency manager for Cocoa projects
+brew "cocoapods"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
 # CLI to manage E2B sandboxes and templates
@@ -21,6 +23,8 @@ brew "supabase"
 brew "swiftlint"
 # Command-line interface for running and interacting with Temporal Server and UI
 brew "temporal"
+# Watch files and take action when they change
+brew "watchman"
 # Generate your Xcode project from a spec file and your folder structure
 brew "xcodegen"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
@@ -28,6 +32,8 @@ brew "yq"
 # App to build and share containerised applications and microservices
 cask "docker-desktop"
 cask "font-jetbrains-mono-nerd-font"
+# OpenJDK distribution from Azul
+cask "zulu@21"
 vscode "github.copilot"
 vscode "github.copilot-chat"
 vscode "github.vscode-github-actions"

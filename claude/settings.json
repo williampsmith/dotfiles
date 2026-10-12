@@ -1,5 +1,5 @@
 {
-  "model": "claude-fable-5-1[1m]",
+  "model": "opus",
   "hooks": {
     "UserPromptSubmit": [
       {
@@ -79,7 +79,8 @@
     "all-ios-skills@swift-ios-skills": true,
     "vercel@claude-plugins-official": true,
     "warp@claude-code-warp": true,
-    "paper-desktop@paper": true
+    "paper-desktop@paper": true,
+    "expo@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "swift-ios-skills": {
@@ -103,5 +104,10 @@
   },
   "effortLevel": "xhigh",
   "theme": "dark",
-  "voiceEnabled": true
+  "voiceEnabled": true,
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "autoCompactWindow": 800000
+    }
+  }
 }
