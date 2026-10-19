@@ -103,11 +103,45 @@
     }
   },
   "effortLevel": "xhigh",
-  "theme": "dark",
-  "voiceEnabled": true,
   "modelSettings": {
     "claude-opus-5-5": {
       "autoCompactWindow": 800000
     }
-  }
+  },
+  "theme": "dark",
+  "autoMode": {
+    "soft_deny": [
+      "$defaults",
+      "Bash(npx eas-cli submit:*) in this repo \u2014 prevent accidental TestFlight/App Store submission outside the documented three-step build\u2192check\u2192submit sequence (CLAUDE.md explicitly forbids --auto-submit)"
+    ],
+    "environment": [
+      "### Org-wide",
+      "**Organization**: None configured",
+      "**Cloud provider(s)**: None configured",
+      "**Repository visibility**: private (williampsmith/grounded, confirmed via gh)",
+      "**Internal sharing / snippet hosting**: None configured \u2014 treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: None configured",
+      "**Default / protected branches**: main is the default branch; no classic protected branches listed and rulesets were not queryable here \u2014 do not treat main as unprotected on that basis alone",
+      "**CI/CD deploy targets**: EAS Build/Submit (eas.json) for iOS TestFlight/App Store; Vercel static export for the web/ marketing site; keys come from EAS environment variables, never the repo",
+      "**Network posture**: None configured",
+      "**Host containment**: None configured \u2014 assume Claude Code runs on an ordinary developer machine (macOS) with open internet",
+      "**Source control**: The trusted repo (github.com:williampsmith/grounded.git) and its remote only \u2014 no additional orgs configured",
+      "**Trusted internal domains**: None configured",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: None configured",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: local-first app data stays on-device (SQLite); `.env.local` and `*.key` / `.env*.local` files per .gitignore patterns; any file or store holding personal, confidential, credential, or regulated data, shared only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries `prod` or `production` as a whole word or name segment",
+      "**Protected deployment namespaces / environments**: None configured \u2014 fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries `prod` or `production` as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development (iOS app, LivingTree \u2014 local-first sobriety companion built on Expo SDK 57)",
+      "**Trusted repo**: github.com:williampsmith/grounded.git (private), working directory /Users/williampsmith/dev/git/grounded",
+      "**Org-specific CLIs**: None configured",
+      "routine under src/dev/ and src/app/dev/ (dev-only tooling excluded from release bundles) within this repo"
+    ]
+  },
+  "voiceEnabled": true,
+  "agentPushNotifEnabled": true
 }
