@@ -107,3 +107,4 @@ alias pcld='claude-personal'
 
 # maestro-runner
 export PATH="$HOME/.maestro-runner/bin:$PATH"
+export AWS_PROFILE=Secrets-Admin-746669232438
