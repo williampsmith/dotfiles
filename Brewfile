@@ -25,6 +25,8 @@ brew "swiftlint"
 brew "temporal"
 # Watch files and take action when they change
 brew "watchman"
+# Port of OpenAI's Whisper model in C/C++
+brew "whisper.cpp"
 # Generate your Xcode project from a spec file and your folder structure
 brew "xcodegen"
 # Process YAML, JSON, XML, CSV and properties documents from the CLI
