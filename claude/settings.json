@@ -94,7 +94,9 @@
     "vercel@claude-plugins-official": true,
     "warp@claude-code-warp": true,
     "notion@claude-plugins-official": true,
-    "linear@claude-plugins-official": true
+    "linear@claude-plugins-official": true,
+    "subzero-all@subzero": true,
+    "subzero-eng@subzero": true
   },
   "extraKnownMarketplaces": {
     "swift-ios-skills": {
@@ -108,6 +110,13 @@
         "source": "github",
         "repo": "warpdotdev/claude-code-warp"
       }
+    },
+    "subzero": {
+      "source": {
+        "source": "github",
+        "repo": "SubzeroLabs/agent-plugins"
+      },
+      "autoUpdate": true
     }
   },
   "effortLevel": "high",
