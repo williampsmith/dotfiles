@@ -15,6 +15,7 @@
 [user]
 	name = William Smith
 	email = williamprincesmith@gmail.com
+	signingkey = /Users/williampsmith/.ssh/id_ed25519.pub
 [core]
 	pager = delta
 [delta]
@@ -24,3 +25,7 @@
 	helper = /usr/local/share/gcm-core/git-credential-manager
 [credential "https://dev.azure.com"]
 	useHttpPath = true
+[gpg]
+	format = ssh
+[commit]
+	gpgsign = true
