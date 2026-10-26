@@ -29,5 +29,6 @@
   "claudeCode.preferredLocation": "panel",
   "containers.containerClient": "com.microsoft.visualstudio.containers.docker",
   "containers.orchestratorClient": "com.microsoft.visualstudio.orchestrators.dockercompose",
-  "claudeCode.selectedModel": "opus[1m]"
+  "claudeCode.selectedModel": "opus[1m]",
+  "makefile.configureOnOpen": true
 }
