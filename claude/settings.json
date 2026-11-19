@@ -109,6 +109,7 @@
     }
   },
   "theme": "dark",
+  "agentPushNotifEnabled": true,
   "autoMode": {
     "soft_deny": [
       "$defaults",
@@ -142,6 +143,5 @@
       "routine under src/dev/ and src/app/dev/ (dev-only tooling excluded from release bundles) within this repo"
     ]
   },
-  "voiceEnabled": true,
-  "agentPushNotifEnabled": true
+  "voiceEnabled": true
 }
