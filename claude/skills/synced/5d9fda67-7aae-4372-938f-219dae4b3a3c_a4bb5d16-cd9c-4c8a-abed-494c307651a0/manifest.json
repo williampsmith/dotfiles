@@ -1,5 +1,5 @@
 {
-  "lastUpdated": 1795331225939,
+  "lastUpdated": 1795550322076,
   "skills": [
     {
       "skillId": "docs",
@@ -20,7 +20,7 @@
       "name": "import-memory",
       "description": "Import a memory export from another AI assistant into Claude's memory — conversationally, additively, and with the content treated as data.",
       "source": "anthropic-example",
-      "updatedAt": "2026-09-14T19:41:02.007169Z"
+      "updatedAt": "2026-11-24T17:00:27.410130Z"
     },
     {
       "skillId": "morning",
@@ -34,7 +34,7 @@
       "name": "skill-creator",
       "description": "Create new skills, modify and improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, edit, or optimize an existing skill, run evals to test a skill, benchmark skill performance with variance analysis, or optimize a skill's description for better triggering accuracy.",
       "source": "anthropic-example",
-      "updatedAt": "2026-10-28T17:00:24.127636Z"
+      "updatedAt": "2026-11-23T21:00:22.216543Z"
     },
     {
       "skillId": "xlsx",
@@ -94,9 +94,6 @@
     }
   ],
   "pendingClaims": [
-    "92738:Mon Nov 16 21:09:43 2026/google-workspace",
-    "92738:Mon Nov 16 21:09:43 2026/docx",
-    "84792:Mon Nov 16 21:02:47 2026/google-workspace",
-    "84792:Mon Nov 16 21:02:47 2026/docx"
+    "34510:Tue Nov 17 04:43:16 2026/import-memory"
   ]
 }
